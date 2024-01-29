@@ -1,0 +1,23 @@
+{
+	"name": "my-first-package",
+	"version": "0.0.1",
+	"description": "This is my first package and amy first server and my first require(s)",
+	"main": "app.js",
+	"scripts": {
+		"start": "node app.js",
+		"dev": "nodemon app.js"
+	},
+	"keywords": [
+		"node",
+		"package",
+		"studying"
+	],
+	"author": "Florian",
+	"license": "MIT",
+	"devDependencies": {
+		"nodemon": "^3.0.3"
+	},
+	"dependencies": {
+		"cat-names": "^3.1.0"
+	}
+}
