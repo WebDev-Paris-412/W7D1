@@ -10,7 +10,6 @@ const express = require("express")
  */
 
 const app = express()
-const catNames = require("cat-names")
 /**
  * Import middlewares
  */
@@ -46,48 +45,19 @@ app.use(express.urlencoded({ extended: true }))
  */
 app.use((req, res, next) => {
 	req.secret = "My-Api-Key"
+	req.isLoggedIn = true
 	// console.log("in the middleware")
 	next()
 })
 
-const students = require("./students.json")
 /**
  * Here we can create some routes
+ * we are redirecting every request to the index.routes
  */
 
-app.get("/", (request, response) => {
-	// response.send("hello")
-	// console.log(__dirname)
-	response.sendFile(__dirname + "/views/home.html")
-})
+const indexRouting = require("./routes/index.routes")
 
-app.get("/students", (req, res) => {
-	res.json({ count: students.length, result: students, greet: "Howdy" })
-})
-
-/**
- * params anyone?
- * Same as in React, define them using :nameOfYourParams
- * Acces them using req.params.nameOfYourParams
- */
-
-app.get("/students/:index", (req, res) => {
-	const oneStudent = students[req.params.index]
-	res.json({ foundStudent: oneStudent })
-})
-
-/**
- * req.secret was defined
- * in a middleware earlier, have a look at line 35!
- */
-app.get("/admin", (req, res) => {
-	res.json({ secret: req.secret })
-})
-
-function randomCatController(req, res) {
-	res.json({ name: catNames.random() })
-}
-app.get("/cat-random", randomCatController)
+app.use("/", indexRouting)
 
 /**
  * 404 should be one
